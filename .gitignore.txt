@@ -1,0 +1,8 @@
+.idea
+.qodo
+cropped_ev_plates
+prac
+processed
+seen_boxes
+uploads
+best.pt
