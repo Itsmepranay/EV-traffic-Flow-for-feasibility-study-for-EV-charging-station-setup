@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EV vs ICE Detection</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    input[type=file] { margin-bottom: 1rem; }
+    #stats { margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Upload Video for EV/ICE Detection</h1>
+  <form id="upload-form" method="POST" action="/upload" enctype="multipart/form-data">
+    <input type="file" name="video" accept="video/*" required />
+    <br />
+    <button type="submit">Run Detection</button>
+  </form>
+
+  <div id="stats"></div>
+  <video id="result-video" controls style="display:none; margin-top:1rem; max-width:100%;"></video>
+
+  <script>
+    const form = document.getElementById('upload-form');
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      document.getElementById('stats').textContent = 'Processing...';
+      const resp = await fetch('/upload', {
+        method: 'POST',
+        body: data
+      });
+      if (!resp.ok) {
+        document.getElementById('stats').textContent = 'Error during processing.';
+        return;
+      }
+      // stats from JSON body
+      const stats = await resp.json();
+      document.getElementById('stats').innerHTML = `
+        <h2>Results</h2>
+        <ul>
+          <li>Total frames: ${stats.frames_total}</li>
+          <li>Processed frames: ${stats.frames_processed}</li>
+          <li>Total time: ${stats.total_time_s}s</li>
+          <li>Inference time: ${stats.inference_s}s</li>
+          <li>Classification time: ${stats.classification_s}s</li>
+          <li>Drawing time: ${stats.drawing_s}s</li>
+          <li>Unique EV count: ${stats.unique_ev_count}</li>
+        </ul>
+      `;
+      // get video blob
+      const blob = await resp.blob();
+      const url = URL.createObjectURL(blob);
+      const vid = document.getElementById('result-video');
+      vid.src = url;
+      vid.style.display = 'block';
+    };
+  </script>
+</body>
+</html>
