@@ -1,23 +1,22 @@
-# 🔋 EV Plate Detector: Count Unique Electric Vehicles from Videos & Live Feed
+# 🔋 EV Plate Detector – Unique EV Counting for Smart Charging Insights
 
-This project is a Flask web application that uses a YOLOv8 object detection model to **detect and count unique Electric Vehicles (EVs)** from uploaded videos or a live webcam feed. It annotates only **new unique EV license plates**, avoiding duplicates using a proximity-based comparison.
+This project is a Flask web application that uses a YOLOv8 object detection model to **detect and count unique Electric Vehicles (EVs)** from uploaded videos or live webcam feeds. It focuses on identifying **unique EV license plates**, making it ideal for analyzing EV traffic flow in specific locations.
 
-The app provides both:
-- 🎥 Annotated video output with bounding boxes and unique EV count
-- 📷 Real-time webcam EV detection with live updates via SSE (Server-Sent Events)
+> 🎯 **Purpose:**  
+> This tool serves as a **feasibility study platform for EV charging station companies and potential franchise owners**, helping them understand EV density and traffic in targeted regions.
 
 ---
 
-## 📁 Features
+## 📦 Features
 
-- Upload a video and process it to count **unique EV license plates**  
-- Detect EVs from live webcam feed in real-time  
-- Bounding box annotations only for **new** EVs (avoids duplicates)  
-- Final output includes:
-  - Annotated video for download
-  - Cropped EV license plate images
-  - Unique EV count shown on screen  
-- Built using **YOLOv8**, **OpenCV**, and **Flask**
+- 🎥 Upload a video to automatically detect and **count unique EVs**  
+- 📡 Real-time EV detection via webcam stream with live updates  
+- ✅ Avoids duplicate counting using a **centroid proximity check**
+- 🧠 Annotates only **new unique EV license plates**
+- 💾 Output includes:
+  - Processed video with bounding boxes
+  - Cropped license plate images
+  - Final count of unique EVs displayed on screen  
 
 ---
 
@@ -33,8 +32,8 @@ The app provides both:
 
 ```bash
 # Clone this repo
-git clone https://github.com/your-username/ev-plate-detector.git
-cd ev-plate-detector
+git clone https://github.com/Itsmepranay/EV-traffic-Flow-for-feasibility-study-for-EV-charging-station-setup.git
+cd EV-traffic-Flow-for-feasibility-study-for-EV-charging-station-setup
 
 # (Optional) Create a virtual environment
 python -m venv venv
